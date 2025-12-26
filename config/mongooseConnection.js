@@ -1,11 +1,12 @@
-import mongoose, { connect } from "mongoose";
+const mongoose = require('mongoose');
+const dbgr= require('debug')("development:mongoose")
 
-connect(`mongodb://localhost:27017/bagspotdb`).then(()=>{
-    console.log("database connected...");
+mongoose.connect(`mongodb://localhost:27017/bagspotdb`).then(()=>{
+    dbgr("database connected...");
     
 }).catch((err)=>{
-    console.log("Error : ",err);
+    dbgr("Error : ",err);
     
 })
 
-export default mongoose.connection
+module.exports = mongoose.connection;
