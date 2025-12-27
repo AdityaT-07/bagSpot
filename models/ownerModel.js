@@ -6,10 +6,17 @@ const ownerSchema = mongoose.Schema({
     fulname : {
         type : String,
         minLength : 3,
-        trim : true
+        trim : true,
+        required : true
     },
-    email : String,
-    password : String,
+    email : {
+        type : String,
+        required : true
+    },
+    password :  {
+        type : String,
+        required : true
+    },
     product : {
         type : Array,
         default : []
