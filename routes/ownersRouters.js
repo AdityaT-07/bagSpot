@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Joi = require('joi');
+const ownerValidationSchema = require('../validation/ownerValidator')
 const ownermodel = require('../models/ownerModel')
 if(process.env.NODE_ENV ==='development'){
     router.post('/create', async (req,res)=>{
@@ -10,11 +10,16 @@ if(process.env.NODE_ENV ==='development'){
                 .status(502)
                 .send("you dont have permission to create a new owner")
              }
-             let{fullName,email,password,picture} = req.body;
+             let {error,value} = ownerValidationSchema.validate(req.body);
+             if(error){
+              return res
+                .status(502)
+                .send("please fill all details")
+             }
              let createdOwner = await ownermodel.create({
-                    fullName : Joi.toString().min(3).trim().required(),
-                    email : Joi.toString().email().required(),
-                    password : Joi.toString().min(6).required()
+                    fullName :value.fullName,
+                    email : value.email ,
+                    password : value.password
              })
              res.status(201).send(createdOwner)
     })
