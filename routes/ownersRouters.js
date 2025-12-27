@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const Joi = require('joe');
 const ownermodel = require('./models/ownerModel.js')
 if(process.env.NODE_ENV ==='development'){
     router.post('/create', async (req,res)=>{
@@ -11,9 +12,9 @@ if(process.env.NODE_ENV ==='development'){
              }
              let{fullName,email,password,picture} = req.body;
              let createdOwner = await ownermodel.create({
-                    fullName,
-                    email,
-                    password
+                    fullName : Joi.toString().min(3).trim().required(),
+                    email : Joi.toString().email().required(),
+                    password : Joi.toString().min(6).required()
              })
              res.status(201).send(createdOwner)
     })
