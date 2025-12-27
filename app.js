@@ -20,6 +20,9 @@ app.use('/users',usersRouters)
 app.use('/owners',ownersRouters)
 app.use('/products',productsRouters)
 
+app.get('/',(req,res)=>{
+    res.render('register')
+})
 
 
 app.listen(3000);
