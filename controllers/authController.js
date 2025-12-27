@@ -5,7 +5,7 @@ const { generateToken } = require("../utils/generateToken");
 
 module.exports.registerUser = async (req, res) => {
   try {
-    console.log(req.body);
+
     
     const { error, value } = userValidationSchema.validate(req.body);
     if (error) {
@@ -30,7 +30,8 @@ module.exports.registerUser = async (req, res) => {
 
     const token = generateToken(user);
     res.cookie('token', token);
-    res.status(201).send("User registered successfully");
+    // res.status(201).send("User registered successfully");
+    res.redirect('/')
 
   } catch (err) {
     res.status(500).send(err.message);

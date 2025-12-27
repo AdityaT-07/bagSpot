@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const cookieParser = require('cookie-parser')
 const {registerUser} = require('../controllers/authController')
+const{loginUser} = require("../controllers/isLoginned")
 
 router.use(cookieParser())
 
@@ -10,6 +11,8 @@ router.get('/', (req, res) =>{
 })
 
 router.post('/register',registerUser)
+
+router.post('/login',loginUser)
 
 
 module.exports = router;
