@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const cookieParser = require('cookie-parser')
 const {registerUser} = require('../controllers/authController')
-const{loginUser} = require("../controllers/isLoginned")
+const{loginUser} = require("../controllers/userLogin")
 
 router.use(cookieParser())
 
