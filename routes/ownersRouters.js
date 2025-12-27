@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const Joi = require('joe');
-const ownermodel = require('./models/ownerModel.js')
+const Joi = require('joi');
+const ownermodel = require('../models/ownerModel')
 if(process.env.NODE_ENV ==='development'){
     router.post('/create', async (req,res)=>{
              let owners = await ownermodel.find();
