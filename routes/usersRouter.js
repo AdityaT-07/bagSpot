@@ -9,7 +9,7 @@ router.get('/', (req, res) =>{
     res.send("its working user")
 })
 
-router.get('/register',registerUser)
+router.post('/register',registerUser)
 
 
 module.exports = router;

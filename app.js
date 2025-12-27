@@ -21,7 +21,7 @@ app.use('/owners',ownersRouters)
 app.use('/products',productsRouters)
 
 app.get('/',(req,res)=>{
-    res.render('register')
+    res.render('index',{error: 0})
 })
 
 
