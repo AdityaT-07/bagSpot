@@ -10,7 +10,9 @@ bcrypt.compare(password,existinguser.password,(err,result)=>{
     if(result){
         let token = generateToken(existinguser);
         res.cookie("token",token)
-        res.send("loginned successfully")
+        console.log("loginned successfully")
+        res.redirect('/users/shop');
+
 
     }
     else{
