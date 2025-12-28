@@ -3,15 +3,15 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const Product = require('../models/productModel');
+const crypto = require('crypto')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, path.join(__dirname, '../public/uploads'));
   },
   filename: function (req, file, cb) {
-    const uniqueName =
-      Date.now() + '-' + Math.round(Math.random() * 1e9) +
-      path.extname(file.originalname);
+    const uniqueName =crypto.randomBytes(10).toString('hex')+ path.extname(file.originalname)
+      
 
     cb(null, uniqueName);
   }
@@ -53,7 +53,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
     }
 
     const product = await Product.create({
-      image: req.file.filename,   // stored in DB
+      image: req.file.filename,   
       name,
       price,
       discount,
@@ -62,10 +62,7 @@ router.post('/create', upload.single('image'), async (req, res) => {
       textColor: textcolor
     });
 
-    res.status(201).json({
-      message: 'Product created successfully',
-      product
-    });
+    res.send('product created succesfully')
 
   } catch (error) {
     console.error(error);
