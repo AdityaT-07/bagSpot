@@ -11,6 +11,10 @@ bcrypt.compare(password,existinguser.password,(err,result)=>{
         let token = generateToken(existinguser);
         res.cookie("token",token)
         console.log("loginned successfully")
+        req.session.user = {
+      _id: existinguser._id,
+      email: existinguser.email
+    };
         res.redirect('/users/shop');
 
 

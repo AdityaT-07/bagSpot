@@ -8,7 +8,8 @@ const usersRouters = require("./routes/usersRouter.js")
 const ownersRouters = require("./routes/ownersRouters.js")
 const productsRouters = require("./routes/productsRouters.js")
 const flash = require('connect-flash');
-const expressSession = require('express-session')
+const session = require('express-session')
+const MongoStore = require('connect-mongo');
 
 require('dotenv').config();
 
@@ -17,11 +18,18 @@ app.use(express.urlencoded({extended : true}))
 app.use(express.static(path.join(__dirname,'public')));
 app.set('view engine','ejs')
 app.use(cookieParser())
-app.use(expressSession({
-    resave : false,
-    saveUninitialized : false,
-    secret : process.env.EXPRESS_SESSION_SECRET
-}))
+
+app.use(session({
+  secret: 'keyboard_cat',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://127.0.0.1:27017/yourDBName'
+  }),
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24
+  }
+}));
 app.use(flash())
 
 //separate routes

@@ -36,8 +36,9 @@
           </p>
         <% } %>
 
-        <form action="/cart/add" method="POST" class="mt-4">
+        <form action="/users/cart/add" method="POST" class="mt-4">
           <input type="hidden" name="productId" value="<%= product._id %>">
+           
 
           <button
             type="submit"
